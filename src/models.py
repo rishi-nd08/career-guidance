@@ -111,3 +111,4 @@ class ScrapingResult(BaseModel):
     scraped_at: datetime = Field(default_factory=datetime.now)
     success: bool
     error_message: Optional[str] = None
+
