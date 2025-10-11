@@ -18,18 +18,21 @@ A comprehensive career guidance platform designed specifically for postgraduate 
 
 ## 🛠️ Technology Stack
 
-- **Backend**: FastAPI (Python)
+- **Backend**: FastAPI 0.118.3 (Python)
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Database**: SQLite with SQLAlchemy ORM
-- **Web Scraping**: BeautifulSoup, Selenium, aiohttp
+- **Database**: SQLite with SQLAlchemy 2.0.44 ORM
+- **Web Scraping**: BeautifulSoup 4.14.2, Selenium 4.36.0, aiohttp 3.13.0
 - **UI Framework**: Bootstrap 5
 - **Styling**: Custom CSS with modern design principles
+- **Data Validation**: Pydantic 2.12.0
+- **Server**: Uvicorn 0.37.0
 
 ## 📋 Prerequisites
 
-- Python 3.8 or higher
+- Python 3.8 or higher (Python 3.11+ recommended)
 - Chrome browser (for Selenium web scraping)
 - ChromeDriver (automatically managed by Selenium)
+- Git (for cloning the repository)
 
 ## 🚀 Installation
 
@@ -69,11 +72,28 @@ A comprehensive career guidance platform designed specifically for postgraduate 
    python -c "from src.database import init_db; import asyncio; asyncio.run(init_db())"
    ```
 
+6. **Install sample data (optional)**
+   ```bash
+   python -c "from src.database import insert_sample_data; import asyncio; asyncio.run(insert_sample_data())"
+   ```
+
 ## 🏃‍♂️ Running the Application
 
-1. **Start the FastAPI server**
+### Development Mode
+1. **Start the FastAPI server with auto-reload**
+   ```bash
+   python run.py
+   ```
+
+2. **Alternative: Direct FastAPI start**
    ```bash
    python app.py
+   ```
+
+### Production Mode
+1. **Start with production settings**
+   ```bash
+   python run_production.py
    ```
 
 2. **Access the application**
@@ -292,6 +312,17 @@ Enable debug mode by setting:
 uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
 ```
 
+## 📈 Recent Updates (v1.0.0)
+
+- ✅ Updated to FastAPI 0.118.3 with modern lifespan context manager
+- ✅ Upgraded all dependencies to latest stable versions
+- ✅ Enhanced Pydantic 2.12.0 integration for better data validation
+- ✅ Improved Selenium 4.36.0 web scraping capabilities
+- ✅ Updated SQLAlchemy 2.0.44 for better database performance
+- ✅ Enhanced aiohttp 3.13.0 for improved async operations
+- ✅ Added comprehensive sample data for testing
+- ✅ Improved error handling and logging
+
 ## 📈 Future Enhancements
 
 - [ ] Integration with LinkedIn API for enhanced job data
@@ -302,6 +333,8 @@ uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
 - [ ] Advanced analytics and career progression tracking
 - [ ] Multi-language support
 - [ ] Mobile application
+- [ ] AI-powered career matching
+- [ ] Integration with job board APIs
 
 ## 📄 License
 

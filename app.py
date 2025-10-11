@@ -5,6 +5,7 @@ A comprehensive tool for personalized career roadmaps and job market insights
 
 import os
 import asyncio
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -21,10 +22,24 @@ from src.roadmap_generator import RoadmapGenerator
 # Load environment variables
 load_dotenv()
 
+# Initialize components
+career_agent = CareerGuidanceAgent()
+job_scraper = JobMarketScraper()
+roadmap_generator = RoadmapGenerator()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Initialize database and components on startup"""
+    await init_db()
+    print("Career Guidance Agent started successfully!")
+    yield
+    print("Career Guidance Agent shutting down...")
+
 app = FastAPI(
     title="Career Guidance Agent",
     description="Comprehensive career guidance for PG students with personalized roadmaps and market insights",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # Add CORS middleware
@@ -38,17 +53,6 @@ app.add_middleware(
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# Initialize components
-career_agent = CareerGuidanceAgent()
-job_scraper = JobMarketScraper()
-roadmap_generator = RoadmapGenerator()
-
-@app.on_event("startup")
-async def startup_event():
-    """Initialize database and components on startup"""
-    await init_db()
-    print("Career Guidance Agent started successfully!")
 
 @app.get("/", response_class=HTMLResponse)
 async def root():
